@@ -11,7 +11,7 @@ set -e
 export MSYS_NO_PATHCONV=1
 starttime=$(date +%s)
 CC_RUNTIME_LANGUAGE=golang
-CC_SRC_PATH=../chaincode
+CC_SRC_PATH=chaincode
 
 # clean the keystore
 rm -rf ./hfc-key-store

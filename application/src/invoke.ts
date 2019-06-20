@@ -2,9 +2,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { FileSystemWallet, Gateway } from 'fabric-network';
 import * as fs from 'fs';
 import * as path from 'path';
+import {FileSystemWallet, Gateway} from "../fabric-sdk-node/fabric-network/types";
 
 const ccpPath = path.resolve(__dirname, '..', '..', '..', 'basic-network', 'connection.json');
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');

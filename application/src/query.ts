@@ -2,9 +2,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { FileSystemWallet, Gateway } from 'fabric-network';
 import * as fs from 'fs';
 import * as path from 'path';
+import {FileSystemWallet, Gateway} from "../fabric-sdk-node/fabric-network/types";
 
 const ccpPath = path.resolve(__dirname, '..', '..', '..', 'basic-network', 'connection.json');
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
@@ -28,7 +28,7 @@ async function main() {
 
         // Create a new gateway for connecting to our peer node.
         const gateway = new Gateway();
-        await gateway.connect(ccp, { wallet, identity: 'user1', discovery: { enabled: false } });
+        await gateway.connect(ccp, {wallet, identity: 'user1', discovery: {enabled: false}});
 
         // Get the network (channel) our contract is deployed to.
         const network = await gateway.getNetwork('mychannel');

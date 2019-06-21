@@ -2,32 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3fb2e8ca-48ea-4311-8bf8-33c0516b70f5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/.editorconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/fabric-sdk-node" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/enrollAdmin.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/invoke.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/query.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/registerUser.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/tslint.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/configtxgen" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/configtxlator" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/cryptogen" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/discover" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/fabric-ca-client" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/idemixgen" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/orderer" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/peer" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chaincode/landregister_chaincode.go" beforeDir="false" afterPath="$PROJECT_DIR$/chaincode/landregister.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chaincode/landregister.go" beforeDir="false" afterPath="$PROJECT_DIR$/chaincode/landregister.go" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/landregister-app/.gradle/" />
     <ignored path="$PROJECT_DIR$/landregister-app/build/" />
@@ -54,7 +30,22 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/chaincode/landregister.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="92" column="17" selection-start-line="92" selection-start-column="17" selection-end-line="92" selection-end-column="17" />
+              <folding>
+                <element signature="e#633#876#0" />
+                <element signature="e#924#1262#0" />
+                <element signature="e#1290#1684#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -72,6 +63,11 @@
       <find>BaseClient</find>
       <find>baseC</find>
       <find>baseClient</find>
+      <find>landRegister</find>
+      <find>queryMarbles</find>
+      <find>Unmarshal</find>
+      <find>queryAllCars</find>
+      <find>changeCarOwner</find>
     </findStrings>
     <replaceStrings>
       <replace>notary</replace>
@@ -91,7 +87,6 @@
         <option value="$PROJECT_DIR$/basic-network/docker-compose.yml" />
         <option value="$PROJECT_DIR$/startFabric.sh" />
         <option value="$PROJECT_DIR$/application/src/invoke.ts" />
-        <option value="$PROJECT_DIR$/chaincode/landregister.go" />
         <option value="$PROJECT_DIR$/application/src/query.ts" />
         <option value="$PROJECT_DIR$/application/src/registerUser.ts" />
         <option value="$PROJECT_DIR$/application/registerUser.js" />
@@ -104,6 +99,8 @@
         <option value="$PROJECT_DIR$/application/node_modules/fabric-ca-client/lib/FabricCAServices.js" />
         <option value="$PROJECT_DIR$/landregister-app/build.gradle" />
         <option value="$PROJECT_DIR$/landregister-app/src/main/java/de/htw/berlin/landregisterapp/LandregisterAppApplication.java" />
+        <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.json" />
+        <option value="$PROJECT_DIR$/chaincode/landregister.go" />
       </list>
     </option>
   </component>
@@ -146,13 +143,14 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JSON" />
     <property name="editor.config.ad.shown" value="true" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="javascript.nodejs.core.library.configured.version" value="8.10.0" />
     <property name="jdk.selected.JAVA_MODULE" value="11" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/application/node_modules/fabric-ca-client/lib" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../landregister-application" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -206,7 +204,7 @@
       <workItem from="1561046439329" duration="80000" />
       <workItem from="1561047764072" duration="2164000" />
       <workItem from="1561050540472" duration="166000" />
-      <workItem from="1561050744947" duration="2166000" />
+      <workItem from="1561050744947" duration="13868000" />
     </task>
     <task id="LOCAL-00001" summary="chaincode deployment works !!!!!!!!!!!!!!!!1">
       <created>1561035650947</created>
@@ -222,16 +220,31 @@
       <option name="project" value="LOCAL" />
       <updated>1561039514467</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary=" - landregister appliation moved to its own repo&#10; - bin not needed">
+      <created>1561106972838</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1561106972838</updated>
+    </task>
+    <task id="LOCAL-00004" summary=" json model fixed to show attributes' names">
+      <created>1561117299501</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1561117299501</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20751000" />
+    <option name="totallyTimeSpent" value="32453000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1366" height="743" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22045454" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22045454" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -241,7 +254,7 @@
       <window_info anchor="bottom" id="Build" weight="0.4039088" />
       <window_info anchor="bottom" id="Spring" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32899022" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -273,7 +286,9 @@
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="chaincode deployment works !!!!!!!!!!!!!!!!1" />
     <MESSAGE value="Typesctipt dependencies fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Typesctipt dependencies fixed" />
+    <MESSAGE value=" - landregister appliation moved to its own repo&#10; - bin not needed" />
+    <MESSAGE value=" json model fixed to show attributes' names" />
+    <option name="LAST_COMMIT_MESSAGE" value=" json model fixed to show attributes' names" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -387,13 +402,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chaincode/landregister.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1365">
-          <caret line="97" column="39" selection-start-line="97" selection-start-column="39" selection-end-line="97" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -458,6 +466,16 @@
     <entry file="file://$PROJECT_DIR$/../fabric-samples/fabcar/typescript/src/enrollAdmin.ts">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/landregister-app/src/main/java/de/htw/berlin/landregisterapp/LandregisterAppApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hyperledger.fabric-sdk-java/fabric-sdk-java/1.4.1/d9b8945aac82e95b034cdff30ca9de86c3a73680/fabric-sdk-java-1.4.1-sources.jar!/org/hyperledger/fabric/protos/gossip/Message.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -465,12 +483,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/landregister-app/src/main/java/de/htw/berlin/landregisterapp/LandregisterAppApplication.java">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="30">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="40" column="1" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../fabric-samples/chaincode/marbles02/go/marbles_chaincode.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="540" column="38" selection-start-line="540" selection-start-column="26" selection-end-line="540" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../fabric-samples/chaincode/fabcar/go/fabcar.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="402">
+          <caret line="192" column="28" lean-forward="true" selection-start-line="183" selection-start-column="4" selection-end-line="192" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chaincode/landregister.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="92" column="17" selection-start-line="92" selection-start-column="17" selection-end-line="92" selection-end-column="17" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#633#876#0" />
+            <element signature="e#924#1262#0" />
+            <element signature="e#1290#1684#0" />
           </folding>
         </state>
       </provider>

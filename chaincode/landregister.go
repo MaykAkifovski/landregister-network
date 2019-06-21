@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
@@ -16,7 +17,7 @@ type landRegister struct {
 	ObjectType        string            `json:"docType"` //docType is used to distinguish the various types of objects in state database
 	TitlePage         titlePage         `json:"titlePage"`
 	InventoryRegister inventoryRegister `json:"inventoryRegister"`
-	Owners            []Owner           `json:"owners"`
+	Owners            []owner           `json:"owners"`
 	ReservationNote   bool              `json:"reservationNote"`
 }
 
@@ -38,7 +39,7 @@ type inventoryRegister struct {
 }
 
 // Eigentuemer
-type Owner struct {
+type owner struct {
 	IdentityNumber string `json:"identityNumber"`
 	Title          string `json:"title"` // Anrede
 	Firstname      string `json:"firstname"`
@@ -48,6 +49,13 @@ type Owner struct {
 	City           string `json:"city"`
 	Street         string `json:"street"`
 	Streetnumber   string `json:"streetnumber"`
+}
+
+type reservationNoteRequest struct {
+	ObjectType        string            `json:"docType"` //docType is used to distinguish the various types of objects in state database
+	TitlePage         titlePage         `json:"titlePage"`
+	InventoryRegister inventoryRegister `json:"inventoryRegister"`
+	Owners            []owner           `json:"owners"`
 }
 
 // ===================================================================================
@@ -77,6 +85,12 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) peer.Response
 		return t.initLedger(stub, args)
 	} else if function == "queryLandRegister" {
 		return t.queryLandRegister(stub, args)
+	} else if function == "queryAllLandRegisters" {
+		return t.queryAllLandRegisters(stub, args)
+	} else if function == "createLandRegister" {
+		return t.createLandRegister(stub, args)
+	} else if function == "createReservationNote" {
+		return t.createReservationNote(stub, args)
 	}
 
 	fmt.Println("invoke did not find func: " + function) //error
@@ -104,7 +118,7 @@ func (t *SimpleChaincode) initLedger(stub shim.ChaincodeStubInterface, args []st
 				Location:     "Steencamp 112",
 				Size:         "845 m2",
 			},
-			Owners: []Owner{
+			Owners: []owner{
 				{
 					IdentityNumber: "1",
 					Title:          "Mr",
@@ -160,22 +174,196 @@ func (t *SimpleChaincode) initLedger(stub shim.ChaincodeStubInterface, args []st
 }
 
 func (t *SimpleChaincode) queryLandRegister(stub shim.ChaincodeStubInterface, args []string) peer.Response {
-	var grundbuchId, jsonResp string
+	var landRegisterId, jsonResp string
 	var err error
 
 	if len(args) != 1 {
-		return shim.Error("Incorrect number of arguments. Expecting grundbuchId to query")
+		return shim.Error("Incorrect number of arguments. Expecting landRegisterId to query")
 	}
 
-	grundbuchId = args[0]
-	valAsBytes, err := stub.GetState(grundbuchId) //get the grundbuch from chaincode state
+	landRegisterId = args[0]
+	valAsBytes, err := stub.GetState(landRegisterId) //get the grundbuch from chaincode state
 	if err != nil {
-		jsonResp = "{\"Error\":\"Failed to get state for " + grundbuchId + "\"}"
+		jsonResp = "{\"Error\":\"Failed to get state for " + landRegisterId + "\"}"
 		return shim.Error(jsonResp)
 	} else if valAsBytes == nil {
-		jsonResp = "{\"Error\":\"Marble does not exist: " + grundbuchId + "\"}"
+		jsonResp = "{\"Error\":\"Landregister does not exist: " + landRegisterId + "\"}"
 		return shim.Error(jsonResp)
 	}
 
 	return shim.Success(valAsBytes)
+}
+
+func (t *SimpleChaincode) queryAllLandRegisters(stub shim.ChaincodeStubInterface, args []string) peer.Response {
+	var jsonResp string
+	var err error
+
+	if len(args) != 0 {
+		return shim.Error("Incorrect number of arguments. Expecting 0 arguments.")
+	}
+
+	resultsIterator, err := stub.GetStateByRange("", "") // get the all Landregisters
+	if err != nil {
+		jsonResp = "{\"Error\":\"Failed to get all states\"}"
+		return shim.Error(jsonResp)
+	} else if resultsIterator == nil {
+		jsonResp = "{\"Error\":\"Landregisters do not exist\"}"
+		return shim.Error(jsonResp)
+	} else {
+		defer resultsIterator.Close()
+
+		// buffer is a JSON array containing QueryResults
+		var buffer bytes.Buffer
+		buffer.WriteString("[")
+
+		bArrayMemberAlreadyWritten := false
+		for resultsIterator.HasNext() {
+			queryResponse, err := resultsIterator.Next()
+			if err != nil {
+				return shim.Error(err.Error())
+			}
+			// Add a comma before array members, suppress it for the first array member
+			if bArrayMemberAlreadyWritten == true {
+				buffer.WriteString(",")
+			}
+			buffer.WriteString("{\"Key\":")
+			buffer.WriteString("\"")
+			buffer.WriteString(queryResponse.Key)
+			buffer.WriteString("\"")
+
+			buffer.WriteString(", \"Record\":")
+			// Record is a JSON object, so we write as-is
+			buffer.WriteString(string(queryResponse.Value))
+			buffer.WriteString("}")
+			bArrayMemberAlreadyWritten = true
+		}
+		buffer.WriteString("]")
+
+		fmt.Printf("- queryAllLandRegisters:\n%s\n", buffer.String())
+
+		return shim.Success(buffer.Bytes())
+	}
+}
+
+func (t *SimpleChaincode) createLandRegister(stub shim.ChaincodeStubInterface, args []string) peer.Response {
+	var landRegisterAsString, jsonResp string
+	var landRegisterAsObject landRegister
+	var err error
+
+	if len(args) != 1 {
+		return shim.Error("Incorrect number of arguments. Expecting JSON Representation of LandRegister to query")
+	}
+
+	landRegisterAsString = args[0]
+	err = json.Unmarshal([]byte(landRegisterAsString), &landRegisterAsObject)
+	if err != nil {
+		jsonResp = "{\"Error\":\"Failed to unmarshal: " + landRegisterAsString + "\"}"
+		return shim.Error(jsonResp)
+	}
+
+	landRegisterId := landRegisterAsObject.ObjectType + "-" +
+		landRegisterAsObject.TitlePage.DistrictCourt + "-" +
+		landRegisterAsObject.TitlePage.LandRegistryDistrict + "-" +
+		landRegisterAsObject.TitlePage.SheetNumber
+	err = stub.PutState(landRegisterId, []byte(landRegisterAsString))
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	fmt.Println("Added ", landRegisterAsString, " with id: ", landRegisterId)
+
+	return shim.Success(nil)
+}
+
+func (t *SimpleChaincode) createReservationNote(stub shim.ChaincodeStubInterface, args []string) peer.Response {
+	var reservationNoteRequestAsString, jsonResp string
+	var reservationNoteRequestAsObject reservationNoteRequest
+	var landRegisterAsObject landRegister
+	var err error
+
+	if len(args) != 1 {
+		return shim.Error("Incorrect number of arguments. Expecting JSON Representation of ReservationNoteRequest to query")
+	}
+
+	reservationNoteRequestAsString = args[0]
+	err = json.Unmarshal([]byte(reservationNoteRequestAsString), &reservationNoteRequestAsObject)
+	if err != nil {
+		jsonResp = "{\"Error\":\"Failed to unmarshal: " + reservationNoteRequestAsString + "\"}"
+		return shim.Error(jsonResp)
+	}
+
+	landRegisterId := reservationNoteRequestAsObject.ObjectType + "-" +
+		reservationNoteRequestAsObject.TitlePage.DistrictCourt + "-" +
+		reservationNoteRequestAsObject.TitlePage.LandRegistryDistrict + "-" +
+		reservationNoteRequestAsObject.TitlePage.SheetNumber
+
+	landRegisterAsBytes, err := stub.GetState(landRegisterId)
+	if err != nil {
+		jsonResp = "{\"Error\":\"Failed to find Landregister for: " + landRegisterId + "\"}"
+		return shim.Error(jsonResp)
+	}
+	err = json.Unmarshal(landRegisterAsBytes, &landRegisterAsObject)
+	if err != nil {
+		jsonResp = "{\"Error\":\"Failed to unmarshal: " + string(landRegisterAsBytes) + "\"}"
+		return shim.Error(jsonResp)
+	}
+
+	if !assertSameLandRegister(landRegisterAsObject, reservationNoteRequestAsObject) {
+		jsonResp = "{\"Error\":\"Landregister and Reservation note request unequal! " +
+			string(landRegisterAsBytes) + " " + reservationNoteRequestAsString + "\"}"
+		return shim.Error(jsonResp)
+	}
+	landRegisterAsObject.ReservationNote = true
+
+	landRegisterAsBytes, _ = json.Marshal(landRegisterAsObject)
+	err = stub.PutState(landRegisterId, landRegisterAsBytes)
+	if err != nil {
+		jsonResp = "{\"Error\":\"Failed to create ReservationNote for " + landRegisterId + "\"}"
+		return shim.Error(jsonResp)
+	}
+	return shim.Success(nil)
+}
+
+func assertSameLandRegister(landRegister landRegister, request reservationNoteRequest) bool {
+	if assertSameInventoryRegister(landRegister, request) {
+	} else {
+		return false
+	}
+
+	if len(landRegister.Owners) != len(request.Owners) {
+		return false
+	}
+
+	numberOfOwners := len(landRegister.Owners)
+	for i := 0; i < numberOfOwners; i++ {
+		for j := 0; j < numberOfOwners; j++ {
+			if landRegister.Owners[i].IdentityNumber == request.Owners[j].IdentityNumber {
+				sameOwner := assertSameOwner(landRegister.Owners[i], request.Owners[j])
+				if !sameOwner {
+					return false
+				}
+			}
+		}
+	}
+
+	return true
+}
+
+func assertSameInventoryRegister(landRegister landRegister, request reservationNoteRequest) bool {
+	return landRegister.InventoryRegister.Subdistrict == request.InventoryRegister.Subdistrict &&
+		landRegister.InventoryRegister.Size == request.InventoryRegister.Size &&
+		landRegister.InventoryRegister.Location == request.InventoryRegister.Location &&
+		landRegister.InventoryRegister.EconomicType == request.InventoryRegister.EconomicType &&
+		landRegister.InventoryRegister.Parcel == request.InventoryRegister.Parcel &&
+		landRegister.InventoryRegister.Hall == request.InventoryRegister.Hall
+}
+
+func assertSameOwner(lrOwner owner, rOwner owner) bool {
+	return lrOwner.DateOfBirth == rOwner.DateOfBirth &&
+		lrOwner.City == rOwner.City &&
+		lrOwner.Postcode == rOwner.Postcode &&
+		lrOwner.Streetnumber == rOwner.Streetnumber &&
+		lrOwner.Title == rOwner.Title &&
+		lrOwner.Lastname == rOwner.Lastname &&
+		lrOwner.Firstname == rOwner.Firstname
 }

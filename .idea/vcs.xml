@@ -3,5 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/application/fabric-sdk-node" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/fabric-sdk-node" vcs="Git" />
   </component>
 </project>

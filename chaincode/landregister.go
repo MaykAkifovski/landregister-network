@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	"github.com/hyperledger/fabric/protos/peer"
-	"strings"
 )
 
 // SimpleChaincode example simple Chaincode implementation
@@ -14,28 +13,28 @@ type SimpleChaincode struct {
 
 // Grundbuch
 type landRegister struct {
-	ObjectType string `json:"docType"` //docType is used to distinguish the various types of objects in state database
-	TitlePage
-	InventoryRegister
-	Owners          []Owner
-	ReservationNote bool `json:"reservationNote"`
+	ObjectType        string            `json:"docType"` //docType is used to distinguish the various types of objects in state database
+	TitlePage         titlePage         `json:"titlePage"`
+	InventoryRegister inventoryRegister `json:"inventoryRegister"`
+	Owners            []Owner           `json:"owners"`
+	ReservationNote   bool              `json:"reservationNote"`
 }
 
 // Titelblatt
-type TitlePage struct {
+type titlePage struct {
 	DistrictCourt        string `json:"districtCourt"`        // Amtsgericht
 	LandRegistryDistrict string `json:"landRegistryDistrict"` // Grundbuchbezirk
 	SheetNumber          string `json:"sheetNumber"`          // Nummer des Blattes
 }
 
 // Bestandsverzeichnis
-type InventoryRegister struct {
+type inventoryRegister struct {
 	Subdistrict  string `json:"subdistrict"`  // Gemarkung
 	Hall         string `json:"hall"`         // Flur
 	Parcel       string `json:"parcel"`       // Flurstueck
 	EconomicType string `json:"economicType"` // Wirtschaftsart
-	Location     string `json:"location"`     //Lage
-	Size         string `json:"size"`         //Groesse
+	Location     string `json:"location"`     // Lage
+	Size         string `json:"size"`         // Groesse
 }
 
 // Eigentuemer
@@ -92,12 +91,12 @@ func (t *SimpleChaincode) initLedger(stub shim.ChaincodeStubInterface, args []st
 	landRegisters := []landRegister{
 		{
 			ObjectType: "landRegister",
-			TitlePage: TitlePage{
+			TitlePage: titlePage{
 				DistrictCourt:        "Eutin",
 				LandRegistryDistrict: "Malente",
 				SheetNumber:          "3323",
 			},
-			InventoryRegister: InventoryRegister{
+			InventoryRegister: inventoryRegister{
 				Subdistrict:  "Malente",
 				Hall:         "4",
 				Parcel:       "6/12",
@@ -140,11 +139,10 @@ func (t *SimpleChaincode) initLedger(stub shim.ChaincodeStubInterface, args []st
 		if err != nil {
 			return shim.Error(err.Error())
 		}
-		landRegisterId := strings.ToLower(
-			landRegisters[i].ObjectType + "-" +
-				landRegisters[i].TitlePage.DistrictCourt + "-" +
-				landRegisters[i].TitlePage.LandRegistryDistrict + "-" +
-				landRegisters[i].TitlePage.SheetNumber)
+		landRegisterId := landRegisters[i].ObjectType + "-" +
+			landRegisters[i].TitlePage.DistrictCourt + "-" +
+			landRegisters[i].TitlePage.LandRegistryDistrict + "-" +
+			landRegisters[i].TitlePage.SheetNumber
 		err = stub.PutState(landRegisterId, landRegisterAsBytes)
 		if err != nil {
 			return shim.Error(err.Error())

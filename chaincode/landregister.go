@@ -71,7 +71,7 @@ func main() {
 // Init initializes chaincode
 // ===========================
 func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) peer.Response {
-	return shim.Success(nil)
+	return t.initLedger(stub)
 }
 
 // Invoke - Our entry point for Invocations
@@ -82,7 +82,7 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) peer.Response
 
 	// Handle different functions
 	if function == "initLedger" { //create a new marble
-		return t.initLedger(stub, args)
+		return t.initLedger(stub)
 	} else if function == "queryLandRegister" {
 		return t.queryLandRegister(stub, args)
 	} else if function == "queryAllLandRegisters" {
@@ -100,7 +100,7 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) peer.Response
 // ============================================================
 // initLedger - create a new realEstate, store into chaincode state
 // ============================================================
-func (t *SimpleChaincode) initLedger(stub shim.ChaincodeStubInterface, args []string) peer.Response {
+func (t *SimpleChaincode) initLedger(stub shim.ChaincodeStubInterface) peer.Response {
 
 	landRegisters := []landRegister{
 		{

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/landregister-app.iml" filepath="$PROJECT_DIR$/.idea/modules/landregister-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/landregister-network.iml" filepath="$PROJECT_DIR$/.idea/landregister-network.iml" />
     </modules>
   </component>

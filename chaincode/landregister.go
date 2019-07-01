@@ -42,13 +42,13 @@ type inventoryRegister struct {
 type owner struct {
 	IdentityNumber string `json:"identityNumber"`
 	Title          string `json:"title"` // Anrede
-	Firstname      string `json:"firstname"`
-	Lastname       string `json:"lastname"`
+	FirstName      string `json:"firstName"`
+	LastName       string `json:"lastName"`
 	DateOfBirth    string `json:"dateOfBirth"`
 	Postcode       string `json:"postcode"`
 	City           string `json:"city"`
 	Street         string `json:"street"`
-	Streetnumber   string `json:"streetnumber"`
+	StreetNumber   string `json:"streetNumber"`
 }
 
 type reservationNoteRequest struct {
@@ -122,24 +122,24 @@ func (t *SimpleChaincode) initLedger(stub shim.ChaincodeStubInterface) peer.Resp
 				{
 					IdentityNumber: "1",
 					Title:          "Mr",
-					Firstname:      "Reiner",
-					Lastname:       "Schatz",
+					FirstName:      "Reiner",
+					LastName:       "Schatz",
 					DateOfBirth:    "17.06.1955",
 					Postcode:       "10***",
 					City:           "Berlin",
 					Street:         "Street",
-					Streetnumber:   "123",
+					StreetNumber:   "123",
 				},
 				{
 					IdentityNumber: "2",
 					Title:          "Mrs",
-					Firstname:      "Monika",
-					Lastname:       "Schatz",
+					FirstName:      "Monika",
+					LastName:       "Schatz",
 					DateOfBirth:    "16.07.1956",
 					Postcode:       "10***",
 					City:           "Berlin",
 					Street:         "Street",
-					Streetnumber:   "123",
+					StreetNumber:   "123",
 				},
 			},
 			ReservationNote: false,
@@ -362,8 +362,8 @@ func assertSameOwner(lrOwner owner, rOwner owner) bool {
 	return lrOwner.DateOfBirth == rOwner.DateOfBirth &&
 		lrOwner.City == rOwner.City &&
 		lrOwner.Postcode == rOwner.Postcode &&
-		lrOwner.Streetnumber == rOwner.Streetnumber &&
+		lrOwner.StreetNumber == rOwner.StreetNumber &&
 		lrOwner.Title == rOwner.Title &&
-		lrOwner.Lastname == rOwner.Lastname &&
-		lrOwner.Firstname == rOwner.Firstname
+		lrOwner.LastName == rOwner.LastName &&
+		lrOwner.FirstName == rOwner.FirstName
 }

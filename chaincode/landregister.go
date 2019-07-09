@@ -314,8 +314,7 @@ func (t *SimpleChaincode) createReservationNote(stub shim.ChaincodeStubInterface
 	}
 
 	if !assertSameLandRegister(landRegisterAsObject, reservationNoteRequestAsObject) {
-		jsonResp = "{\"Error\":\"Landregister and Reservation note request unequal! (" +
-			string(landRegisterAsBytes) + " " + reservationNoteRequestAsString + ")\"}"
+		jsonResp = "{\"Error\":\"Landregister and Reservation note request unequal!\"}"
 		return shim.Error(jsonResp)
 	}
 	landRegisterAsObject.ReservationNote = true

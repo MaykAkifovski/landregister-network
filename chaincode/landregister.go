@@ -49,6 +49,7 @@ type owner struct {
 	City           string `json:"city"`
 	Street         string `json:"street"`
 	StreetNumber   string `json:"streetNumber"`
+	CoOwnership    string `json:"coOwnership"` // Miteigentumsanteil
 }
 
 type reservationNoteRequest struct {
@@ -129,6 +130,7 @@ func (t *SimpleChaincode) initLedger(stub shim.ChaincodeStubInterface) peer.Resp
 					City:           "Berlin",
 					Street:         "Street",
 					StreetNumber:   "123",
+					CoOwnership:    "50%",
 				},
 				{
 					IdentityNumber: "2",
@@ -140,6 +142,7 @@ func (t *SimpleChaincode) initLedger(stub shim.ChaincodeStubInterface) peer.Resp
 					City:           "Berlin",
 					Street:         "Street",
 					StreetNumber:   "123",
+					CoOwnership:    "50%",
 				},
 			},
 			ReservationNote: false,
